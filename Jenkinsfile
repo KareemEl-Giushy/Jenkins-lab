@@ -11,6 +11,14 @@ pipeline {
     }
 
     stages {
+        stage('Debug Permissions') {
+            steps {
+                sh 'whoami'
+                sh 'groups'
+                sh 'ls -l /var/run/docker.sock'
+            }
+        }
+
         stage("build java app") {
             steps {
                 sh "mvn package install -DskipTests"
