@@ -31,8 +31,8 @@ pipeline {
         stage('init global vars') {
             steps {
                 script {
-                    mvn = com.iti.MVNClass()
-                    docker = com.iti.DockerClass()
+                    mvn = new com.iti.MVNClass()
+                    docker = new com.iti.DockerClass()
                 }
             }
         }
