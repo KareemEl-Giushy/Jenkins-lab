@@ -2,7 +2,6 @@
 import com.iti.MVNClass
 import com.iti.DockerClass
 
-
 def mvn = new MVNClass()
 def docker = new DockerClass()
 
