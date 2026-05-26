@@ -9,6 +9,9 @@ pipeline {
     environment {
         docker_cred = credentials("docker-cred")
     }
+    parameters {
+        string (defaultValue: '${env.BUILD_NUMBER}', name: 'imageTag')
+    }
 
     stages {
         stage('Debug Permissions') {
@@ -39,7 +42,7 @@ pipeline {
 
         stage("Build Image") {
             steps {
-                sh "docker build -t kareemelgiushy/iti-java-devops:${env.BUILD_NUMBER} ."
+                sh "docker build -t kareemelgiushy/iti-java-devops:${params.imageTag} ."
             }
         }
 
@@ -51,7 +54,7 @@ pipeline {
 
         stage("Push Image") {
             steps {
-                sh "docker push kareemelgiushy/iti-java-devops:${env.BUILD_NUMBER}"
+                sh "docker push kareemelgiushy/iti-java-devops:${params.imageTag}"
             }
         }
 
