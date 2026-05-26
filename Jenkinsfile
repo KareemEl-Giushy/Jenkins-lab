@@ -71,7 +71,7 @@ pipeline {
         stage("Push Image") {
             steps {
                 script {
-                    docker.pushImage(image_name, params.iamgeTag)
+                    docker.pushImage(image_name, params.imageTag)
                 }
             }
         }
