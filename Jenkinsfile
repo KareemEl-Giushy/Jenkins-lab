@@ -1,7 +1,7 @@
 @Library('custom-sharedlib') _
-
-def mvn = new com.iti.MVNClass()
-def docker = new com.iti.DockerClass()
+import com.iti
+def mvn
+def docker
 
 pipeline {
     agent {
@@ -25,6 +25,15 @@ pipeline {
                 sh 'whoami'
                 sh 'groups'
                 sh 'ls -l /var/run/docker.sock'
+            }
+        }
+
+        stage('init global vars') {
+            steps {
+                script {
+                    mvn = MVNClass()
+                    docker = DockerClass()
+                }
             }
         }
 
