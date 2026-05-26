@@ -1,4 +1,10 @@
 @Library('custom-sharedlib') _
+import com.iti.MVNClass
+import com.iti.DockerClass
+
+
+def mvn = new MVNClass()
+def docker = new DockerClass()
 
 pipeline {
     agent {
@@ -28,8 +34,6 @@ pipeline {
         stage("build java app") {
             steps {
                 script {
-                    def mvn = new com.iti.MVNClass()
-
                     mvn.buildProject("package install -DskipTests")
                 }
             }
@@ -38,8 +42,6 @@ pipeline {
         stage("test app") {
             steps {
                 script {
-                    def mvn = new com.iti.MVNClass()
-
                     mvn.runTests()
                 }
             }
@@ -54,7 +56,6 @@ pipeline {
         stage("Build Image") {
             steps {
                 script {
-                    def docker = new com.iti.DockerClass()
                     docker.buildImage(image_name, params.imageTag)
                 }
             }
@@ -63,7 +64,6 @@ pipeline {
         stage("Docker login") {
             steps {
                 script {
-                    def docker = new com.iti.DockerClass()
                     docker.dockerLogin(docker_cred_USR, docker_cred_PSW)
                 }
             }
