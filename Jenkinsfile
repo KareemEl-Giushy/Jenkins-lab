@@ -14,7 +14,7 @@ pipeline {
         maven 'maven-3.9.16'
     }
     environment {
-        docker_cred = credentials("docker-cred")
+        docker_cred = "docker-cred"
         image_name = 'kareemelgiushy/iti-java-devops'
     }
     parameters {
@@ -63,7 +63,7 @@ pipeline {
         stage("Docker login") {
             steps {
                 script {
-                    docker.dockerLogin(docker_cred_USR, docker_cred_PSW)
+                    docker.dockerLogin(docker_cred)
                 }
             }
         }
