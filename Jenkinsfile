@@ -39,7 +39,7 @@ pipeline {
 
         stage("Build Image") {
             steps {
-                sh "docker build -t kareemelgiushy/iti-java-devops:v1 ."
+                sh "docker build -t kareemelgiushy/iti-java-devops:${env.BUILD_NUMBER} ."
             }
         }
 
@@ -51,7 +51,7 @@ pipeline {
 
         stage("Push Image") {
             steps {
-                sh "docker push kareemelgiushy/iti-java-devops:v1"
+                sh "docker push kareemelgiushy/iti-java-devops:${env.BUILD_NUMBER}"
             }
         }
 
