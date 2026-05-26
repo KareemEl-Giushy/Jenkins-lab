@@ -10,7 +10,7 @@ pipeline {
         docker_cred = credentials("docker-cred")
     }
     parameters {
-        string (defaultValue: "${env.BUILD_NUMBER + 1}", name: 'imageTag')
+        string (defaultValue: "${env.BUILD_NUMBER.toInteger() + 1}", name: 'imageTag')
     }
 
     stages {
