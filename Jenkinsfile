@@ -1,5 +1,7 @@
 @Library('custom-sharedlib') _
-import com.iti
+import com.iti.MVNClass
+import com.iti.DockerClass
+
 def mvn
 def docker
 
