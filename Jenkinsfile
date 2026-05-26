@@ -1,3 +1,8 @@
+@Library('custom-sharedlib') _
+
+def mvn = new com.iti.MVNClass()
+def docker = new com.iti.DockerClass()
+
 pipeline {
     agent {
         label 'worker-agent'
@@ -8,6 +13,7 @@ pipeline {
     }
     environment {
         docker_cred = credentials("docker-cred")
+        image_name = 'kareemelgiushy/iti-java-devops'
     }
     parameters {
         string (defaultValue: "${env.BUILD_NUMBER.toInteger() + 1}", name: 'imageTag')
@@ -24,13 +30,17 @@ pipeline {
 
         stage("build java app") {
             steps {
-                sh "mvn package install -DskipTests"
+                script {
+                    mvn.buildProject("package install -DskipTests")
+                }
             }
         }
 
         stage("test app") {
             steps {
-                sh "mvn test"
+                script {
+                    mvn.runTests()
+                }
             }
         }
 
@@ -42,19 +52,25 @@ pipeline {
 
         stage("Build Image") {
             steps {
-                sh "docker build -t kareemelgiushy/iti-java-devops:${params.imageTag} ."
+                script {
+                    docker.buildImage(image_name, params.imageTag)
+                }
             }
         }
 
         stage("Docker login") {
             steps {
-                sh 'docker login -u ${docker_cred_USR} -p ${docker_cred_PSW}'
+                script {
+                    docker.dockerLogin(docker_cred_USR, docker_cred_PSW)
+                }
             }
         }
 
         stage("Push Image") {
             steps {
-                sh "docker push kareemelgiushy/iti-java-devops:${params.imageTag}"
+                script {
+                    docker.pushImage(image_name, params.iamgeTag)
+                }
             }
         }
 
