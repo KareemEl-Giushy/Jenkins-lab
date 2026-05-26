@@ -1,6 +1,4 @@
 @Library('custom-sharedlib') _
-import com.iti.MVNClass
-import com.iti.DockerClass
 
 def mvn
 def docker
@@ -33,8 +31,8 @@ pipeline {
         stage('init global vars') {
             steps {
                 script {
-                    mvn = MVNClass()
-                    docker = DockerClass()
+                    mvn = com.iti.MVNClass()
+                    docker = com.iti.DockerClass()
                 }
             }
         }
