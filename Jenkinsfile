@@ -45,7 +45,7 @@ pipeline {
 
         stage("Docker login") {
             steps {
-                sh "docker login -u ${docker_cred_USR} -p ${docker_cred_PSW}"
+                sh 'docker login -u ${docker_cred_USR} -p ${docker_cred_PSW}'
             }
         }
 
